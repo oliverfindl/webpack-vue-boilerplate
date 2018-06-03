@@ -10,11 +10,11 @@ Simple boilerplate for building [Vue](https://github.com/vuejs/vue) app with [We
 ## Install
 
 ```bash
-# Clone repository from GitHub to <folder-name>
-$ git clone https://github.com/oliverfindl/webpack-vue-boilerplate <folder-name>
+# Clone repository from GitHub to <directory>
+$ git clone https://github.com/oliverfindl/webpack-vue-boilerplate <directory>
 
-# Switch to <folder-name>
-$ cd <folder-name>
+# Switch to <directory>
+$ cd <directory>
 
 # Install all dependencies
 $ npm install
@@ -37,9 +37,9 @@ $ npm run build
 
 ```
 .                       # root
-├── dist                # folder for distributables 
-├── src                 # folder for source code
-│   ├── assets          # folder for assets (images, video, audio, fonts, etc.)
+├── dist                # directory for distributables 
+├── src                 # directory for source code
+│   ├── assets          # directory for assets (images, video, audio, fonts, etc.)
 │   ├── App.vue         # main Vue component file
 │   ├── index.html      # index file for Vue app
 │   └── main.js         # main Vue app file
