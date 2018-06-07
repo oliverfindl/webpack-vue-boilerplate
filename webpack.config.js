@@ -33,7 +33,8 @@ module.exports = {
 			options: {
 				presets: [
 					"env",
-					"minify"
+					"minify",
+					"stage-2"
 				]
 			}
 		}, {
