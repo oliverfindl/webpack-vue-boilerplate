@@ -4,8 +4,8 @@
 	"description": "Simple boilerplate for building Vue app with Webpack.",
 	"main": "src/main.js",
 	"scripts": {
-		"dev": "cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --hot --open",
-		"build": "cross-env NODE_ENV=production node_modules/.bin/webpack --hide-modules --progress"
+		"dev": "node_modules/.bin/cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --hot --open",
+		"build": "node_modules/.bin/cross-env NODE_ENV=production node_modules/.bin/webpack --hide-modules --progress"
 	},
 	"repository": {
 		"type": "git",
