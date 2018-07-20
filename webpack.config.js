@@ -35,11 +35,7 @@ module.exports = {
 			loader: "babel-loader",
 			exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
 			options: {
-				presets: [
-					"env",
-					"minify",
-					"stage-2"
-				]
+				presets: ["env", "minify", "stage-2"]
 			}
 		}, {
 			test: /\.css$/,
