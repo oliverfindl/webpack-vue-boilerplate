@@ -7,13 +7,15 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 
+const PUBLIC_PATH = "/";
+
 module.exports = {
 	mode: process.env.NODE_ENV,
 	target: "web",
 	entry: path.resolve(__dirname, "src/main.js"),
 	output: {
 		path: path.resolve(__dirname, "dist"),
-//		publicPath: "/",
+		publicPath: PUBLIC_PATH,
 		filename: "javascript/[name].[hash:8].js",
 		chunkFilename: "javascript/[id].[chunkhash:8].js"
 	},
@@ -109,8 +111,8 @@ module.exports = {
 			cacheId: require(path.resolve(__dirname,"package.json")).name,
 			filename: "service-worker.js",
 			minify: true,
-			navigateFallback: "/index.html",
-			staticFileGlobs: ["/index.html", "dist/*.ico", "dist/**/*.{html,css,js,json,png,jpg,gif,svg,ico,eot,ttf,woff}"],
+			navigateFallback: PUBLIC_PATH + "index.html",
+			staticFileGlobs: [PUBLIC_PATH + "index.html", "dist/*.ico", "dist/**/*.{html,css,js,json,png,jpg,gif,svg,ico,eot,ttf,woff}"],
 			staticFileGlobsIgnorePatterns: [/\.map$/],
 			stripPrefix: "dist/"
 		})
