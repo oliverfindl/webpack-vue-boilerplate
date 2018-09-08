@@ -84,6 +84,12 @@ module.exports = {
 		new CopyWebpackPlugin([{
 			from: "src/.ht*",
 			to: "[name].[ext]"
+		}, {
+			from: "src/manifest.json",
+			to: "[name].[ext]"
+		}, {
+			from: "src/assets/manifest-logo-*.png",
+			to: "images/[name].[ext]"
 		}]),
 		new HtmlWebpackPlugin({
 			filename: "index.html",
