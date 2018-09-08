@@ -37,6 +37,7 @@
 		"babel-preset-env": "^1.7.0",
 		"babel-preset-minify": "^0.4.3",
 		"babel-preset-stage-2": "^6.24.1",
+		"babel-preset-vue": "^2.0.2",
 		"clean-webpack-plugin": "^0.1.19",
 		"copy-webpack-plugin": "^4.5.2",
 		"cross-env": "^5.2.0",
