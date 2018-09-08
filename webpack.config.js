@@ -90,7 +90,7 @@ module.exports = {
 			from: "src/manifest.json",
 			to: "[name].[ext]"
 		}, {
-			from: "src/assets/manifest-logo-*.png",
+			from: "src/assets/manifest-icon-*.png",
 			to: "images/[name].[ext]"
 		}]),
 		new HtmlWebpackPlugin({
