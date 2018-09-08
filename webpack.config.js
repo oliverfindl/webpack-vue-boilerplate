@@ -5,6 +5,7 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 
 module.exports = {
 	mode: process.env.NODE_ENV,
@@ -97,6 +98,15 @@ module.exports = {
 				removeComments: true
 			},
 			xhtml: true
+		}),
+		new SWPrecacheWebpackPlugin({
+			cacheId: require(path.resolve(__dirname,"package.json")).name,
+			filename: "service-worker.js",
+			minify: true,
+			navigateFallback: "/index.html",
+			staticFileGlobs: ["/index.html", "dist/*.ico", "dist/**/*.{html,css,js,json,png,jpg,gif,svg,ico,eot,ttf,woff}"],
+			staticFileGlobsIgnorePatterns: [/\.map$/],
+			stripPrefix: "dist/"
 		})
 	],
 	resolve: {
