@@ -1,6 +1,6 @@
 "use strict";
 
-const path = require("path");
+const { resolve } = require("path");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -12,9 +12,9 @@ const PUBLIC_PATH = "/";
 module.exports = {
 	mode: process.env.NODE_ENV,
 	target: "web",
-	entry: path.resolve(__dirname, "src/main.js"),
+	entry: resolve(__dirname, "src/main.js"),
 	output: {
-		path: path.resolve(__dirname, "dist"),
+		path: resolve(__dirname, "dist"),
 		publicPath: PUBLIC_PATH,
 		filename: "javascript/[name].[hash:8].js",
 		chunkFilename: "javascript/[id].[chunkhash:8].js"
@@ -108,7 +108,7 @@ module.exports = {
 			xhtml: true
 		}),
 		new SWPrecacheWebpackPlugin({
-			cacheId: require(path.resolve(__dirname,"package.json")).name,
+			cacheId: require(resolve(__dirname,"package.json")).name,
 			filename: "service-worker.js",
 			minify: true,
 			navigateFallback: PUBLIC_PATH + "index.html",
@@ -121,7 +121,7 @@ module.exports = {
 		extensions: [".js", ".vue", ".json"],
 		alias: {
 			"vue$": "vue/dist/vue.esm.js",
-			"@": path.resolve(__dirname, "src")
+			"@": resolve(__dirname, "src")
 		}
 	}
 };
