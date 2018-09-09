@@ -61,7 +61,7 @@ module.exports = {
 				"sass-loader?indentedSyntax"
 			]
 		}, {
-			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+			test: /\.(png|jpe?g|gif|ico|svg)(\?.*)?$/,
 			loader: "file-loader",
 			options: {
 				name: "images/[name].[hash:8].[ext]"
@@ -112,7 +112,7 @@ module.exports = {
 			filename: "service-worker.js",
 			minify: true,
 			navigateFallback: PUBLIC_PATH + "index.html",
-			staticFileGlobs: [PUBLIC_PATH + "index.html", "dist/*.ico", "dist/**/*.{html,css,js,json,png,jpg,gif,svg,ico,eot,ttf,woff}"],
+			staticFileGlobs: [PUBLIC_PATH + "index.html", "dist/*.ico", "dist/**/*.{html,css,js,json,png,jpg,jpeg,gif,ico,svg,mp4,webm,ogg,mp3,wav,flac,aac,woff,woff2,eot,ttf,otf}"],
 			staticFileGlobsIgnorePatterns: [/\.map$/],
 			stripPrefix: "dist/"
 		})
