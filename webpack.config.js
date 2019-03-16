@@ -58,21 +58,35 @@ module.exports = {
 			test: /\.css$/,
 			use: [
 				"vue-style-loader",
-				"css-loader"
+				"css-loader",
+				"postcss-loader"
 			]
 		}, {
 			test: /\.scss$/,
 			use: [
 				"vue-style-loader",
 				"css-loader",
-				"sass-loader"
+				{
+					loader: "sass-loader",
+					options: {
+						outputStyle: "compressed"
+					}
+				},
+				"postcss-loader"
 			]
 		}, {
 			test: /\.sass$/,
 			use: [
 				"vue-style-loader",
 				"css-loader",
-				"sass-loader?indentedSyntax"
+				{
+					loader: "sass-loader",
+					options: {
+						indentedSyntax: true,
+						outputStyle: "compressed"
+					}
+				},
+				"postcss-loader"
 			]
 		}, {
 			test: /\.(png|jpe?g|gif|ico|svg)(\?.*)?$/,
