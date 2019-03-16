@@ -22,8 +22,8 @@ module.exports = {
 	devServer: {
 		historyApiFallback: true,
 		overlay: {
-			warnings: true,
-			errors: true
+			errors: true,
+			warnings: true
 		}
 	},
 	performance: {
@@ -38,7 +38,10 @@ module.exports = {
 			loader: "babel-loader",
 			exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
 			options: {
-				presets: ["vue", "env", "minify", "stage-2"]
+				comments: false,
+				minified: true,
+				plugins: ["@babel/plugin-syntax-dynamic-import"],
+				presets: ["vue", ["@babel/preset-env", { useBuiltIns: "usage" }]]
 			}
 		}, {
 			test: /\.css$/,
@@ -82,7 +85,7 @@ module.exports = {
 	},
 	plugins: [
 		new VueLoaderPlugin(),
-		new CleanWebpackPlugin(["dist"]),
+		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
 			from: "src/.ht*",
 			to: "[name].[ext]"
@@ -108,7 +111,7 @@ module.exports = {
 			xhtml: true
 		}),
 		new SWPrecacheWebpackPlugin({
-			cacheId: require(resolve(__dirname,"package.json")).name,
+			cacheId: require(resolve(__dirname, "package.json")).name,
 			filename: "service-worker.js",
 			minify: true,
 			navigateFallback: PUBLIC_PATH + "index.html",
