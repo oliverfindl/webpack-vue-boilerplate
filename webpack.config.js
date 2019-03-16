@@ -1,6 +1,7 @@
 "use strict";
 
 const { resolve } = require("path");
+const { DefinePlugin } = require("webpack");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -109,6 +110,10 @@ module.exports = {
 		}]
 	},
 	plugins: [
+		new DefinePlugin({
+			"PUBLIC_PATH": JSON.stringify(PUBLIC_PATH),
+			"REGISTER_SW": JSON.stringify(process.env.NODE_ENV === "production")
+		}),
 		new VueLoaderPlugin(),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
