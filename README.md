@@ -27,25 +27,25 @@ $ npm update
 ## Usage
 
 ```bash
-# Start Webpack development server with Hot Module Replacement enabled
+# Launch Webpack development server with Vue app loaded
 $ npm run dev
 
-# Build and minify Vue app
+# Build Vue app
 $ npm run build
 ```
 
 ## App structure
 
-```
+```bash
 .                       # root
-├── dist                # directory for distributables 
+├── dist                # directory for distributables
 ├── src                 # directory for source code
 │   ├── assets          # directory for assets (images, video, audio, fonts, etc.)
 │   ├── App.vue         # main Vue component file
 │   ├── index.html      # index file for Vue app
 │   └── main.js         # main Vue app file
-├── package.json        # configuration file for npm
-└── webpack.config.js   # configuration file for Webpack
+├── package.json        # npm configuration file
+└── webpack.config.js   # Webpack configuration file
 ```
 
 ---
