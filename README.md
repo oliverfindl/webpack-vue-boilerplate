@@ -45,6 +45,7 @@ $ npm run build
 │   ├── index.html      # index file for Vue app
 │   └── main.js         # main Vue app file
 ├── package.json        # npm configuration file
+├── postcss.config.js   # postcss configuration file
 └── webpack.config.js   # Webpack configuration file
 ```
 
