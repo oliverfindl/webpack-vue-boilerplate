@@ -19,6 +19,8 @@
 		"vuex",
 		"sass",
 		"node-sass",
+		"postcss",
+		"autoprefixer",
 		"boilerplate",
 		"webpack-vue-boilerplate"
 	],
