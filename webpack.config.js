@@ -3,7 +3,7 @@
 const { resolve } = require("path");
 const { DefinePlugin } = require("webpack");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
@@ -33,8 +33,8 @@ module.exports = {
 	module: {
 		rules: [{
 			enforce: "pre",
-			test: /\.(vue|js)$/,
-			exclude: /node_modules/,
+			test: /\.(vue|m?js)$/i,
+			exclude: /(node_modules|bower_components)/,
 			loader: "eslint-loader",
 			options: {
 				emitError: true,
@@ -43,69 +43,79 @@ module.exports = {
 				failOnWarning: true
 			}
 		}, {
-			test: /\.vue$/,
+			test: /\.vue$/i,
 			loader: "vue-loader"
 		}, {
-			test: /\.js$/,
+			test: /\.m?js$/i,
 			loader: "babel-loader",
-			exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+			exclude: /(node_modules|bower_components)/,
 			options: {
 				comments: false,
 				minified: true,
 				plugins: ["@babel/plugin-syntax-dynamic-import"],
-				presets: ["vue", ["@babel/preset-env", { useBuiltIns: "usage" }]]
+				presets: [["@babel/preset-env", {
+					useBuiltIns: "usage",
+					corejs: 3
+				}]]
 			}
 		}, {
-			test: /\.css$/,
+			test: /\.css$/i,
 			use: [
 				"vue-style-loader",
 				"css-loader",
 				"postcss-loader"
 			]
 		}, {
-			test: /\.scss$/,
-			use: [
-				"vue-style-loader",
-				"css-loader",
-				{
-					loader: "sass-loader",
-					options: {
-						outputStyle: "compressed"
-					}
-				},
-				"postcss-loader"
-			]
-		}, {
-			test: /\.sass$/,
+			test: /\.scss$/i,
 			use: [
 				"vue-style-loader",
 				"css-loader",
 				{
 					loader: "sass-loader",
 					options: {
-						indentedSyntax: true,
-						outputStyle: "compressed"
+						sassOptions: {
+							outputStyle: "compressed"
+						}
 					}
 				},
 				"postcss-loader"
 			]
 		}, {
-			test: /\.(png|jpe?g|gif|ico|svg)(\?.*)?$/,
+			test: /\.sass$/i,
+			use: [
+				"vue-style-loader",
+				"css-loader",
+				{
+					loader: "sass-loader",
+					options: {
+						sassOptions: {
+							indentedSyntax: true,
+							outputStyle: "compressed"
+						}
+					}
+				},
+				"postcss-loader"
+			]
+		}, {
+			test: /\.(png|jpe?g|gif|ico|svg)(\?.*)?$/i,
 			loader: "file-loader",
 			options: {
-				name: "images/[name].[hash:8].[ext]"
+				name: "images/[name].[hash:8].[ext]",
+				esModule: false
 			}
 		}, {
-			test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+			test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/i,
 			loader: "file-loader",
 			options: {
-				name: "media/[name].[hash:8].[ext]"
+				name: "media/[name].[hash:8].[ext]",
+				esModule: false
 			}
 		}, {
-			test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+			test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
 			loader: "file-loader",
 			options: {
-				name:"fonts/[name].[hash:8].[ext]"
+				name:"fonts/[name].[hash:8].[ext]",
+				esModule: false
 			}
 		}]
 	},
@@ -128,9 +138,9 @@ module.exports = {
 		}]),
 		new HtmlWebpackPlugin({
 			filename: "index.html",
-			template: "src/index.html",
+			template: resolve("src/index.html"),
 			inject: true,
-			favicon: "src/assets/favicon.ico",
+			favicon: resolve("src/assets/favicon.ico"),
 			minify: {
 				collapseInlineTagWhitespace: true,
 				collapseWhitespace: true,
@@ -144,14 +154,14 @@ module.exports = {
 			cacheId: require(resolve(__dirname, "package.json")).name,
 			filename: "service-worker.js",
 			minify: true,
-			navigateFallback: PUBLIC_PATH + "index.html",
-			staticFileGlobs: [PUBLIC_PATH + "index.html", "dist/*.ico", "dist/**/*.{html,css,js,json,png,jpg,jpeg,gif,ico,svg,mp4,webm,ogg,mp3,wav,flac,aac,woff,woff2,eot,ttf,otf}"],
+			navigateFallback: `${PUBLIC_PATH}index.html`,
+			staticFileGlobs: [`${PUBLIC_PATH}index.html`, "dist/*.ico", "dist/**/*.{html,css,js,mjs,json,png,jpg,jpeg,gif,ico,svg,mp4,webm,ogg,mp3,wav,flac,aac,woff,woff2,eot,ttf,otf}"],
 			staticFileGlobsIgnorePatterns: [/\.map$/],
 			stripPrefix: "dist/"
 		})
 	],
 	resolve: {
-		extensions: [".js", ".vue", ".json"],
+		extensions: [".vue", ".js", "mjs", ".json"],
 		alias: {
 			"vue$": "vue/dist/vue.esm.js",
 			"@": resolve(__dirname, "src")
