@@ -1,6 +1,6 @@
 # webpack-vue-boilerplate
 
-![license](https://img.shields.io/github/license/oliverfindl/webpack-vue-boilerplate.svg?style=flat)
+[![license](https://img.shields.io/github/license/oliverfindl/webpack-vue-boilerplate.svg?style=flat)][mit]
 [![paypal](https://img.shields.io/badge/donate-paypal-blue.svg?colorB=0070ba&style=flat)](https://paypal.me/oliverfindl)
 
 Simple boilerplate for building [Vue](https://github.com/vuejs/vue) app with [Webpack](https://github.com/webpack/webpack).
@@ -53,4 +53,6 @@ $ npm run build
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+[MIT][mit]
+
+[mit]: https://opensource.org/licenses/MIT
