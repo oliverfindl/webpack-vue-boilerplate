@@ -62,14 +62,30 @@ module.exports = {
 			test: /\.css$/i,
 			use: [
 				"vue-style-loader",
-				"css-loader",
+				{
+					loader: "css-loader",
+					options: {
+						importLoaders: 1
+						// 0 => no loaders (default);
+						// 1 => postcss-loader;
+					}
+				},
 				"postcss-loader"
 			]
 		}, {
 			test: /\.scss$/i,
 			use: [
 				"vue-style-loader",
-				"css-loader",
+				{
+					loader: "css-loader",
+					options: {
+						importLoaders: 2
+						// 0 => no loaders (default);
+						// 1 => postcss-loader;
+						// 2 => postcss-loader, sass-loader
+					}
+				},
+				"postcss-loader",
 				{
 					loader: "sass-loader",
 					options: {
@@ -77,14 +93,22 @@ module.exports = {
 							outputStyle: "compressed"
 						}
 					}
-				},
-				"postcss-loader"
+				}
 			]
 		}, {
 			test: /\.sass$/i,
 			use: [
 				"vue-style-loader",
-				"css-loader",
+				{
+					loader: "css-loader",
+					options: {
+						importLoaders: 2
+						// 0 => no loaders (default);
+						// 1 => postcss-loader;
+						// 2 => postcss-loader, sass-loader
+					}
+				},
+				"postcss-loader",
 				{
 					loader: "sass-loader",
 					options: {
@@ -93,8 +117,7 @@ module.exports = {
 							outputStyle: "compressed"
 						}
 					}
-				},
-				"postcss-loader"
+				}
 			]
 		}, {
 			test: /\.(png|jpe?g|gif|ico|svg)(\?.*)?$/i,
