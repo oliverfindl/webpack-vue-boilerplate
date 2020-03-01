@@ -3,6 +3,7 @@
 const { resolve } = require("path");
 const { DefinePlugin } = require("webpack");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -164,6 +165,7 @@ module.exports = {
 			"REGISTER_SW": JSON.stringify(process.env.NODE_ENV === "production")
 		}),
 		new VueLoaderPlugin(),
+		new BundleAnalyzerPlugin(),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
 			from: "src/.ht*",
