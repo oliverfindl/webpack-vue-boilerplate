@@ -165,7 +165,6 @@ module.exports = {
 			"REGISTER_SW": JSON.stringify(process.env.NODE_ENV === "production")
 		}),
 		new VueLoaderPlugin(),
-		new BundleAnalyzerPlugin(),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
 			from: "src/.ht*",
@@ -200,7 +199,9 @@ module.exports = {
 			staticFileGlobsIgnorePatterns: [/\.map$/],
 			stripPrefix: "dist/"
 		})
-	],
+	].concat(process.env.NODE_ENV === "production" ? [
+		new BundleAnalyzerPlugin()
+	]: []),
 	resolve: {
 		extensions: [".vue", ".js", "mjs", ".json"],
 		alias: {
