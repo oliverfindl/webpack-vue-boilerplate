@@ -40,7 +40,9 @@ $ npm run build
 .                       # root
 ├── dist                # directory for distributables
 ├── src                 # directory for source code
-│   ├── assets          # directory for assets (images, video, audio, fonts, etc.)
+│   ├── assets          # directory for assets
+│   ├── components      # directory for Vue components
+│   ├── styles          # directory for styles
 │   ├── App.vue         # main Vue component file
 │   ├── index.html      # index file for Vue app
 │   └── main.js         # main Vue app file
