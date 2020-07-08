@@ -9,14 +9,16 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 
+const { name: PACKAGE_NAME } = require(resolve(__dirname, "./package.json"));
+const PRODUCTION_BUILD = !!process.env.NODE_ENV && process.env.NODE_ENV === "production";
 const PUBLIC_PATH = "/";
 
 module.exports = {
-	mode: process.env.NODE_ENV,
+	mode: PRODUCTION_BUILD ? "production" : "development",
 	target: "web",
-	entry: resolve(__dirname, "src/main.js"),
+	entry: resolve(__dirname, "./src/main.js"),
 	output: {
-		path: resolve(__dirname, "dist"),
+		path: resolve(__dirname, "./dist"),
 		publicPath: PUBLIC_PATH,
 		filename: "javascript/[name].[hash:8].js",
 		chunkFilename: "javascript/[id].[chunkhash:8].js"
@@ -125,7 +127,7 @@ module.exports = {
 			use: [{
 				loader: "file-loader",
 				options: {
-					name: "images/[name].[ext]",
+					name: "images/[name].[hash:8].[ext]",
 					esModule: false
 				}
 			}, {
@@ -144,7 +146,7 @@ module.exports = {
 				esModule: false
 			}
 		}, {
-			test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/i,
+			test: /\.(mp4|webm|ogg|mp3|aac|wav|flac)(\?.*)?$/i,
 			loader: "file-loader",
 			options: {
 				name: "media/[name].[hash:8].[ext]",
@@ -154,7 +156,7 @@ module.exports = {
 			test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
 			loader: "file-loader",
 			options: {
-				name:"fonts/[name].[hash:8].[ext]",
+				name: "fonts/[name].[hash:8].[ext]",
 				esModule: false
 			}
 		}]
@@ -162,7 +164,7 @@ module.exports = {
 	plugins: [
 		new DefinePlugin({
 			"PUBLIC_PATH": JSON.stringify(PUBLIC_PATH),
-			"REGISTER_SW": JSON.stringify(process.env.NODE_ENV === "production")
+			"REGISTER_SW": JSON.stringify(PRODUCTION_BUILD)
 		}),
 		new VueLoaderPlugin(),
 		new CleanWebpackPlugin(),
@@ -177,10 +179,12 @@ module.exports = {
 			to: "images/[name].[ext]"
 		}]),
 		new HtmlWebpackPlugin({
+			title: PACKAGE_NAME,
 			filename: "index.html",
-			template: resolve("src/index.html"),
+			template: resolve(__dirname, "./src/index.html"),
 			inject: true,
-			favicon: resolve("src/assets/favicon.ico"),
+			favicon: resolve(__dirname, "./src/assets/favicon.ico"),
+			base: PUBLIC_PATH,
 			minify: {
 				collapseInlineTagWhitespace: true,
 				collapseWhitespace: true,
@@ -191,22 +195,21 @@ module.exports = {
 			xhtml: true
 		}),
 		new SWPrecacheWebpackPlugin({
-			cacheId: require(resolve(__dirname, "package.json")).name,
+			cacheId: PACKAGE_NAME,
 			filename: "service-worker.js",
 			minify: true,
 			navigateFallback: `${PUBLIC_PATH}index.html`,
-			staticFileGlobs: [`${PUBLIC_PATH}index.html`, "dist/*.ico", "dist/**/*.{html,css,js,mjs,json,png,jpg,jpeg,gif,ico,svg,mp4,webm,ogg,mp3,wav,flac,aac,woff,woff2,eot,ttf,otf}"],
-			staticFileGlobsIgnorePatterns: [/\.map$/],
-			stripPrefix: "dist/"
-		})
-	].concat(process.env.NODE_ENV === "production" ? [
-		new BundleAnalyzerPlugin()
-	]: []),
+			staticFileGlobs: [ "./dist/**/*.{html,xml,css,js,mjs,json,svg,png,jpg,jpeg,gif,ico,mp4,webm,ogg,mp3,aac,wav,flac,woff,woff2,eot,ttf,otf}" ],
+			staticFileGlobsIgnorePatterns: [ /\.map$/ ],
+			stripPrefix: "./dist/"
+		}),
+		...(PRODUCTION_BUILD ? [ new BundleAnalyzerPlugin() ] : [])
+	],
 	resolve: {
-		extensions: [".vue", ".js", "mjs", ".json"],
+		extensions: [ ".vue", ".js", ".mjs", ".json" ],
 		alias: {
 			"vue$": "vue/dist/vue.esm.js",
-			"@": resolve(__dirname, "src")
+			"@": resolve(__dirname, "./src")
 		}
 	}
 };
