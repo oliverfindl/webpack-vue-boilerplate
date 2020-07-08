@@ -7,6 +7,5 @@ import "@/registerServiceWorker.js";
 Vue.config.productionTip = false;
 
 new Vue({
-	template: "<app />",
-	components: { App }
+	render: h => h(App)
 }).$mount("#app");
