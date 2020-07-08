@@ -168,16 +168,18 @@ module.exports = {
 		}),
 		new VueLoaderPlugin(),
 		new CleanWebpackPlugin(),
-		new CopyWebpackPlugin([{
-			from: "src/.ht*",
-			to: "[name].[ext]"
-		}, {
-			from: "src/manifest.json",
-			to: "[name].[ext]"
-		}, {
-			from: "src/assets/manifest-icon-*.png",
-			to: "images/[name].[ext]"
-		}]),
+		new CopyWebpackPlugin({
+			patterns: [{
+				from: "src/.ht*",
+				to: "[name].[ext]"
+			}, {
+				from: "src/manifest.json",
+				to: "[name].[ext]"
+			}, {
+				from: "src/assets/manifest-icon-*.png",
+				to: "images/[name].[ext]"
+			}]
+		}),
 		new HtmlWebpackPlugin({
 			title: PACKAGE_NAME,
 			filename: "index.html",
