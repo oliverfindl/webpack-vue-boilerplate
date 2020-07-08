@@ -164,7 +164,7 @@ module.exports = {
 	plugins: [
 		new DefinePlugin({
 			"PUBLIC_PATH": JSON.stringify(PUBLIC_PATH),
-			"REGISTER_SW": JSON.stringify(PRODUCTION_BUILD)
+			"PRODUCTION_BUILD": JSON.stringify(PRODUCTION_BUILD)
 		}),
 		new VueLoaderPlugin(),
 		new CleanWebpackPlugin(),
