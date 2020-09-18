@@ -68,6 +68,7 @@ module.exports = {
 				{
 					loader: "css-loader",
 					options: {
+						esModule: false,
 						importLoaders: 1
 						// 0 => no loaders (default);
 						// 1 => postcss-loader;
@@ -82,6 +83,7 @@ module.exports = {
 				{
 					loader: "css-loader",
 					options: {
+						esModule: false,
 						importLoaders: 2
 						// 0 => no loaders (default);
 						// 1 => postcss-loader;
@@ -105,6 +107,7 @@ module.exports = {
 				{
 					loader: "css-loader",
 					options: {
+						esModule: false,
 						importLoaders: 2
 						// 0 => no loaders (default);
 						// 1 => postcss-loader;
