@@ -5,7 +5,7 @@
 	"main": "src/main.js",
 	"scripts": {
 		"start": "php -S 127.0.0.1:8080 -t dist",
-		"dev": "npx webpack-dev-server --hot --open",
+		"dev": "npx webpack-dev-server",
 		"build": "npx webpack --env.prod --hide-modules --progress",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

@@ -13,25 +13,20 @@ const { name: PACKAGE_NAME } = require(resolve(__dirname, "./package.json"));
 
 const PUBLIC_PATH = "/";
 
-module.exports = {
-	mode: env.prod ? "production" : "development",
-	target: "web",
+const BABEL_PLUGINS = [ "@babel/plugin-syntax-dynamic-import" ];
+const BABEL_PRESETS = [ [ "@babel/preset-env", {
+	useBuiltIns: "usage",
+	corejs: 3
+} ] ];
+
+module.exports = (env = {}) => ({
 	entry: resolve(__dirname, "./src/main.js"),
+	mode: env.prod ? "production" : "development",
 	output: {
 		path: resolve(__dirname, "./dist"),
 		publicPath: PUBLIC_PATH,
 		filename: "javascript/[name].[hash:8].js",
 		chunkFilename: "javascript/[id].[chunkhash:8].js"
-	},
-	devServer: {
-		historyApiFallback: true,
-		overlay: {
-			errors: true,
-			warnings: true
-		}
-	},
-	performance: {
-		hints: false
 	},
 	module: {
 		rules: [{
@@ -55,11 +50,8 @@ module.exports = {
 			options: {
 				comments: false,
 				minified: true,
-				plugins: ["@babel/plugin-syntax-dynamic-import"],
-				presets: [["@babel/preset-env", {
-					useBuiltIns: "usage",
-					corejs: 3
-				}]]
+				plugins: BABEL_PLUGINS,
+				presets: BABEL_PRESETS
 			}
 		}, {
 			test: /\.css$/i,
@@ -164,6 +156,13 @@ module.exports = {
 			}
 		}]
 	},
+	resolve: {
+		extensions: [ ".vue", ".js", ".mjs", ".json" ],
+		alias: {
+			"vue$": "vue/dist/vue.esm.js",
+			"@": resolve(__dirname, "./src")
+		}
+	},
 	plugins: [
 		new DefinePlugin({
 			"PUBLIC_PATH": JSON.stringify(PUBLIC_PATH),
@@ -210,11 +209,16 @@ module.exports = {
 		}),
 		...(env.prod ? [ new BundleAnalyzerPlugin() ] : [])
 	],
-	resolve: {
-		extensions: [ ".vue", ".js", ".mjs", ".json" ],
-		alias: {
-			"vue$": "vue/dist/vue.esm.js",
-			"@": resolve(__dirname, "./src")
-		}
+	devServer: {
+		contentBase: __dirname,
+		historyApiFallback: true,
+		hot: true,
+		inline: true,
+		open: true,
+		overlay: {
+			errors: true,
+			warnings: true
+		},
+		stats: "minimal"
 	}
-};
+});
