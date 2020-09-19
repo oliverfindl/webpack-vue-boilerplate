@@ -10,11 +10,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 
 const { name: PACKAGE_NAME } = require(resolve(__dirname, "./package.json"));
-const PRODUCTION_BUILD = !!process.env.NODE_ENV && process.env.NODE_ENV === "production";
+
 const PUBLIC_PATH = "/";
 
 module.exports = {
-	mode: PRODUCTION_BUILD ? "production" : "development",
+	mode: env.prod ? "production" : "development",
 	target: "web",
 	entry: resolve(__dirname, "./src/main.js"),
 	output: {
@@ -167,7 +167,7 @@ module.exports = {
 	plugins: [
 		new DefinePlugin({
 			"PUBLIC_PATH": JSON.stringify(PUBLIC_PATH),
-			"PRODUCTION_BUILD": JSON.stringify(PRODUCTION_BUILD)
+			"PRODUCTION_BUILD": JSON.stringify(env.prod)
 		}),
 		new VueLoaderPlugin(),
 		new CleanWebpackPlugin(),
@@ -208,7 +208,7 @@ module.exports = {
 			staticFileGlobsIgnorePatterns: [ /\.map$/ ],
 			stripPrefix: "./dist/"
 		}),
-		...(PRODUCTION_BUILD ? [ new BundleAnalyzerPlugin() ] : [])
+		...(env.prod ? [ new BundleAnalyzerPlugin() ] : [])
 	],
 	resolve: {
 		extensions: [ ".vue", ".js", ".mjs", ".json" ],
