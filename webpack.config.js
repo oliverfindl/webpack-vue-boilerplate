@@ -23,17 +23,17 @@ module.exports = (env = {}) => ({
 	entry: resolve(__dirname, "./src/main.js"),
 	mode: env.prod ? "production" : "development",
 	output: {
-		path: resolve(__dirname, "./dist"),
-		publicPath: PUBLIC_PATH,
 		filename: "javascript/[name].[hash:8].js",
-		chunkFilename: "javascript/[id].[chunkhash:8].js"
+		chunkFilename: "javascript/[id].[chunkhash:8].js",
+		path: resolve(__dirname, "./dist"),
+		publicPath: PUBLIC_PATH
 	},
 	module: {
 		rules: [{
 			enforce: "pre",
 			test: /\.(vue|m?js)$/i,
-			exclude: /(node_modules|bower_components)/,
 			loader: "eslint-loader",
+			exclude: /(node_modules|bower_components)/,
 			options: {
 				emitError: true,
 				emitWarning: true,
@@ -157,11 +157,11 @@ module.exports = (env = {}) => ({
 		}]
 	},
 	resolve: {
-		extensions: [ ".vue", ".js", ".mjs", ".json" ],
 		alias: {
 			"vue$": "vue/dist/vue.esm.js",
 			"@": resolve(__dirname, "./src")
-		}
+		},
+		extensions: [ ".vue", ".js", ".mjs", ".json" ]
 	},
 	plugins: [
 		new DefinePlugin({
