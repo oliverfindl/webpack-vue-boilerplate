@@ -3,7 +3,7 @@
 module.exports = {
 	"env": {
 		"browser": true,
-		"es2020": true
+		"es2021": true
 	},
 	"extends": [
 		"eslint:recommended",
@@ -14,7 +14,7 @@ module.exports = {
 		"PRODUCTION_BUILD": "readonly"
 	},
 	"parserOptions": {
-		"ecmaVersion": 11,
+		"ecmaVersion": 12,
 		"parser": "babel-eslint",
 		"sourceType": "module"
 	},
@@ -22,8 +22,8 @@ module.exports = {
 		"vue"
 	],
 	"rules": {
-		"no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-		"no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+		"no-console": process.env.WEBPACK_DEV_SERVER ? "off" : "error",
+		"no-debugger": process.env.WEBPACK_DEV_SERVER ? "off" : "error",
 		"indent": [
 			"error",
 			"tab"
