@@ -7,7 +7,7 @@ module.exports = {
 	},
 	"extends": [
 		"eslint:recommended",
-		"plugin:vue/essential"
+		"plugin:vue/vue3-essential"
 	],
 	"globals": {
 		"PUBLIC_PATH": "readonly",

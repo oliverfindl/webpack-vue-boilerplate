@@ -2,7 +2,8 @@
 
 const { resolve } = require("path");
 const { DefinePlugin } = require("webpack");
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const { VueLoaderPlugin } = require("vue-loader");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -56,7 +57,12 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.css$/i,
 			use: [
-				"vue-style-loader",
+				{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: !env.prod
+					}
+				},
 				{
 					loader: "css-loader",
 					options: {
@@ -71,7 +77,12 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.scss$/i,
 			use: [
-				"vue-style-loader",
+				{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: !env.prod
+					}
+				},
 				{
 					loader: "css-loader",
 					options: {
@@ -95,7 +106,12 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.sass$/i,
 			use: [
-				"vue-style-loader",
+				{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: !env.prod
+					}
+				},
 				{
 					loader: "css-loader",
 					options: {
@@ -158,17 +174,21 @@ module.exports = (env = {}) => ({
 	},
 	resolve: {
 		alias: {
-			"vue$": "vue/dist/vue.esm.js",
 			"@": resolve(__dirname, "./src")
 		},
 		extensions: [ ".vue", ".js", ".mjs", ".json" ]
 	},
 	plugins: [
 		new DefinePlugin({
-			"PUBLIC_PATH": JSON.stringify(PUBLIC_PATH),
-			"PRODUCTION_BUILD": JSON.stringify(env.prod)
+			__VUE_OPTIONS_API__: JSON.stringify(false),
+			__VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+			PUBLIC_PATH: JSON.stringify(PUBLIC_PATH),
+			PRODUCTION_BUILD: JSON.stringify(env.prod)
 		}),
 		new VueLoaderPlugin(),
+		new MiniCssExtractPlugin({
+			filename: "styles/[name].[hash:8].css"
+		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
 			patterns: [{
@@ -220,5 +240,6 @@ module.exports = (env = {}) => ({
 			warnings: true
 		},
 		stats: "minimal"
-	}
+	},
+	devtool: env.prod ? "source-map" : "eval-cheap-module-source-map"
 });

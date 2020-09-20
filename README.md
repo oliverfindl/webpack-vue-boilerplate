@@ -37,18 +37,22 @@ $ npm run build
 ## App structure
 
 ```bash
-.                       # root
-├── dist                # directory for distributables
-├── src                 # directory for source code
-│   ├── assets          # directory for assets
-│   ├── components      # directory for Vue components
-│   ├── styles          # directory for styles
-│   ├── App.vue         # main Vue component file
-│   ├── index.html      # index file for Vue app
-│   └── main.js         # main Vue app file
-├── package.json        # npm configuration file
-├── postcss.config.js   # postcss configuration file
-└── webpack.config.js   # Webpack configuration file
+.                                   # root
+├── dist                            # directory for distributables
+├── src                             # directory for source code
+│   ├── assets                      # directory for assets
+│   ├── components                  # directory for Vue components
+│   ├── styles                      # directory for styles
+│   ├── .htaccess                   # Apache HTTP server configuration file
+│   ├── App.vue                     # main Vue component file
+│   ├── index.html                  # index file for Vue app
+│   ├── index.scss                  # main style file for Vue app
+│   ├── main.js                     # main Vue app file
+│   ├── manifest.json               # manifest file for PWA
+│   └── registerServiceWorker.js    # service worker registration file for PWA
+├── package.json                    # npm configuration file
+├── postcss.config.js               # postcss configuration file
+└── webpack.config.js               # Webpack configuration file
 ```
 
 ---
