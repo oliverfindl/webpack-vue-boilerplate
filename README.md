@@ -45,7 +45,7 @@ $ npm run build
 │   ├── styles                      # directory for styles
 │   ├── .htaccess                   # Apache HTTP server configuration file
 │   ├── App.vue                     # main Vue component file
-│   ├── index.html                  # index file for Vue app
+│   ├── index.html                  # main index file for Vue app
 │   ├── index.scss                  # main style file for Vue app
 │   ├── main.js                     # main Vue app file
 │   ├── manifest.json               # manifest file for PWA
