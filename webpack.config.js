@@ -223,7 +223,7 @@ module.exports = (env = {}) => ({
 			filename: "service-worker.js",
 			minify: true,
 			navigateFallback: `${PUBLIC_PATH}index.html`,
-			staticFileGlobs: [ "./dist/**/*.{html,xml,css,js,mjs,json,svg,png,jpg,jpeg,gif,ico,mp4,webm,ogg,mp3,aac,wav,flac,woff,woff2,eot,ttf,otf}" ],
+			staticFileGlobs: [ "./dist/**/*.{html,xml,css,js,mjs,json,pdf,svg,png,jpg,jpeg,gif,ico,mp4,webm,ogg,mp3,aac,wav,flac,woff,woff2,eot,ttf,otf}" ],
 			staticFileGlobsIgnorePatterns: [ /\.map$/ ],
 			stripPrefix: "./dist/"
 		}),
