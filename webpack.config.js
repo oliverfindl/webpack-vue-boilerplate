@@ -52,7 +52,7 @@ module.exports = (env = {}) => ({
 				comments: false,
 				minified: true,
 				plugins: BABEL_PLUGINS,
-				presets: BABEL_PRESETS
+				presets: env.prod ? BABEL_PRESETS : []
 			}
 		}, {
 			test: /\.css$/i,
