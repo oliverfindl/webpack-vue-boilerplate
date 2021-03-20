@@ -41,7 +41,7 @@ if(PRODUCTION_BUILD && "serviceWorker" in navigator) {
 							// message in the page's interface.
 							console.log("New or updated content is available.");
 							// Reload webpage.
-							location.reload(true);
+							location.reload();
 						} else {
 							// At this point, everything has been precached.
 							// It's the perfect time to display a "Content is cached for offline use." message.

@@ -24,8 +24,6 @@ module.exports = {
 		"vue"
 	],
 	"rules": {
-		"no-console": process.env.WEBPACK_DEV_SERVER ? "off" : "error",
-		"no-debugger": process.env.WEBPACK_DEV_SERVER ? "off" : "error",
 		"indent": [
 			"error",
 			"tab"
