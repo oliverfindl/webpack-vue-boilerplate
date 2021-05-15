@@ -3,6 +3,7 @@
 const { resolve } = require("path");
 const { DefinePlugin, HotModuleReplacementPlugin } = require("webpack");
 const { VueLoaderPlugin } = require("vue-loader");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const StylelintPlugin = require("stylelint-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
@@ -50,7 +51,7 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.css$/i,
 			use: [
-				"style-loader",
+				env.prod ? MiniCssExtractPlugin.loader : "style-loader",
 				{
 					loader: "css-loader",
 					options: {
@@ -64,7 +65,7 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.scss$/i,
 			use: [
-				"style-loader",
+				env.prod ? MiniCssExtractPlugin.loader : "style-loader",
 				{
 					loader: "css-loader",
 					options: {
@@ -87,7 +88,7 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.sass$/i,
 			use: [
-				"style-loader",
+				env.prod ? MiniCssExtractPlugin.loader : "style-loader",
 				{
 					loader: "css-loader",
 					options: {
@@ -158,6 +159,10 @@ module.exports = (env = {}) => ({
 			PRODUCTION_BUILD: JSON.stringify(env.prod)
 		}),
 		new VueLoaderPlugin(),
+		...(env.prod ? [ new MiniCssExtractPlugin({
+			filename: "styles/[name].[contenthash:8].css",
+			chunkFilename: "styles/[name].[contenthash:8].css"
+		}) ] : []),
 		new ESLintPlugin({
 			files: [ "src/**/*.{vue,js,mjs}" ]
 		}),
