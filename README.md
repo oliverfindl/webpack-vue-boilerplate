@@ -32,6 +32,9 @@ $ npm run dev
 
 # Build Vue app
 $ npm run build
+
+# Serve built Vue app
+$ npm run serve
 ```
 
 ## App structure
