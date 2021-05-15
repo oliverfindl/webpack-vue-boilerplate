@@ -6,6 +6,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const StylelintPlugin = require("stylelint-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -149,6 +150,14 @@ module.exports = (env = {}) => ({
 			"@": resolve(__dirname, "./src")
 		},
 		extensions: [ ".vue", ".js", ".mjs", ".json" ]
+	},
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new TerserPlugin({
+				extractComments: false
+			})
+		]
 	},
 	plugins: [
 		...(!env.prod ? [ new HotModuleReplacementPlugin() ] : []),
