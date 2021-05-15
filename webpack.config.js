@@ -19,6 +19,7 @@ const PUBLIC_PATH = "/";
 
 const BABEL_PLUGINS = [ "@babel/plugin-syntax-dynamic-import" ];
 const BABEL_PRESETS = [ [ "@babel/preset-env", {
+	// debug: true,
 	useBuiltIns: "usage",
 	corejs: 3
 } ] ];
@@ -113,7 +114,7 @@ module.exports = (env = {}) => ({
 				{
 					loader: "file-loader",
 					options: {
-						name: "images/[name].[cotenthash:8].[ext]",
+						name: "images/[name].[contenthash:8].[ext]",
 						esModule: false
 					}
 				},
@@ -167,13 +168,13 @@ module.exports = (env = {}) => ({
 		new CopyWebpackPlugin({
 			patterns: [ {
 				from: "src/.ht*",
-				to: "[name].[ext]"
+				to: "[name][ext]"
 			}, {
 				from: "src/manifest.json",
-				to: "[name].[ext]"
+				to: "[name][ext]"
 			}, {
 				from: "src/assets/manifest-icon-*.png",
-				to: "images/[name].[ext]"
+				to: "images/[name][ext]"
 			} ]
 		}),
 		new HtmlWebpackPlugin({
